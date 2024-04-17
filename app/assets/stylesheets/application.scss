@@ -1,0 +1,70 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap";
+
+body {
+  color: rgb(29,29,31);
+  font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#search-header,
+.current-temp-box,
+.weather-today,
+.extended-forecast {
+  padding: 30px;
+  margin-bottom: 2rem;
+}
+
+.current-temp-box,
+.weather-today,
+.extended-forecast {
+  background-color: rgb(251, 251, 251);
+}
+
+.current-temp-box {
+
+  .current-temp-time-location {
+    font-size: 1.7rem;
+  }
+
+  .current-temp {
+    font-size: 3.2rem;
+  }
+
+  .current-weather,
+  .high-low {
+    font-size: 1.5rem;
+  }
+
+}
+
+.weather-today {
+  .weather-feels-like {
+    font-size: 1.5rem;
+  }
+}
+
+.extended-forecast {
+  table {
+    tbody {
+      tr {
+        td:first-child {
+          padding-right: 2rem;
+        }
+      }
+    }
+  }
+}

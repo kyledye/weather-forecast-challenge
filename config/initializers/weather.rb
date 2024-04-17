@@ -1,0 +1,3 @@
+WEATHER_CONFIG = {
+  api_key: '13931ece11e693978055bc4132e9b029'
+}.freeze

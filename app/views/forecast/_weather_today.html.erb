@@ -1,0 +1,68 @@
+<%# More current weather details, not typically necessary to the user, but helpful, nonetheless. %>
+<div class="weather-today">
+  <%# Localize the heading to show the location %>
+  <h2><%= I18n.t('weather_today', location: location[:display_location]) %></h2>
+
+  <%# Truncation to save keystrokes %>
+  <% current = forecast.dig('current') %>
+  <%# Precalculate sunrise so it doesn't have to be done inline %>
+  <% sun_up = Time.at(current['sunrise'].to_i).in_time_zone(forecast.dig('timezone')) %>
+  <%# Precalculate sunset so it doesn't have to be done inline %>
+  <% sun_down = Time.at(current['sunset'].to_i).in_time_zone(forecast.dig('timezone')) %>
+
+  <div class="weather-feels-like">
+    <%= I18n.t('feels_like') %>
+    <strong><%= current['feels_like'].round %>°</strong>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="label"><%= I18n.t('high_low') %></td>
+            <td class="text-end"><%= "#{high_temp}° / #{low_temp}°" %></td>
+          </tr>
+          <tr>
+            <td class="label"><%= I18n.t('visibility') %></td>
+            <%# Convert visibility from km to mi by multiplying by the constant below and rounding the number for cleanliness %>
+            <td class="text-end"><%= "#{(current['visibility'] * 0.000621371).round} mi" %></td>
+          </tr>
+          <tr>
+            <td class="label"><%= I18n.t('humidity') %></td>
+            <td class="text-end"><%= "#{current['humidity']}%" %></td>
+          </tr>
+          <tr>
+            <td class="label"><%= I18n.t('dew_point') %></td>
+            <td class="text-end"><%= "#{current['dew_point']}°" %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <table class="table">
+        <tbody>
+          <tr>
+            <%# Converting from hectopascals (hPA) to inchest of mercury (inHg) by multiplying the pressure value by the conversion factor 0.029529983071445 and rounding for readability %>
+            <td class="label"><%= I18n.t('barometric_pressure') %></td>
+            <td class="text-end"><%= "#{(current['pressure'] * 0.029529983071445).round} in" %></td>
+          </tr>
+          <tr>
+            <td class="label"><%= I18n.t('uv_index') %></td>
+            <td class="text-end"><%= I18n.t('uv_index_rating', rating: current['uvi'].round) %></td>
+          </tr>
+          <tr>
+            <td class="label"><%= I18n.t('sunrise') %></td>
+            <%# Format timestamp for display %>
+            <td class="text-end"><%= sun_up.strftime('%I:%M %p %Z') %></td>
+          </tr>
+          <tr>
+            <td class="label"><%= I18n.t('sunset') %></td>
+            <%# Format timestamp for display %>
+            <td class="text-end"><%= sun_down.strftime('%I:%M %p %Z') %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

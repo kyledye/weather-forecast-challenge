@@ -1,0 +1,27 @@
+<div class="extended-forecast">
+  <h2>Extended Forecast</h2>
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="text-center">Date</th>
+        <th class="text-center">High/Low (F)</th>
+        <th>Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% forecast['daily'].each do |day| %>
+        <%# Truncating variables to make the code cleaner %>
+        <% time_zone = forecast['timezone'] %>
+        <% date = Time.at(day['dt']).in_time_zone(time_zone) %>
+        <% max_temp = day['temp']['max'].round %>
+        <% min_temp = day['temp']['min'].round %>
+        <tr>
+          <td class="text-center"><%= date.strftime('%a, %d') %></td>
+          <td class="text-center"><%= "#{max_temp}° / #{min_temp}°" %></td>
+          <td><%= day['summary'] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

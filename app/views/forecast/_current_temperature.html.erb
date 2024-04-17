@@ -1,0 +1,20 @@
+<%# Truncate this dig to save keystrokes %>
+<% current_temp = forecast.dig('current') %>
+<%# Again, truncation for keystrokes %>
+<% display_location = location.dig(:display_location) %>
+<%# We pluck out all of the potential weather values and join them %>
+<% weather_main = current_temp.dig('weather').pluck('main').join(', ') %>
+
+<div class="current-temp-box">
+  <div class="current-temp-time-location">
+    <strong><%= display_location %></strong>
+    <%= I18n.t('time_as_of', time: time) %>
+  </div>
+  <%# We just round this number for display sake %>
+  <div class="current-temp"><%= current_temp['temp'].to_i.round %>°</div>
+  <div class="current-weather"><%= weather_main %></div>
+  <div class="high-low">
+    <%# Show the high and low for the day, so the user can plan ahead! %>
+    <span class="high"><%= high_temp %>° • <%= low_temp %>°</span>
+  </div>
+</div>

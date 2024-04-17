@@ -1,0 +1,4 @@
+<div class="alert alert-light text-center" id="cache-tag" role="alert">
+  <%# We can let the user know whether or not the results were cached %>
+  <%= read_from_cache ? I18n.t('cache_tag_true') : I18n.t('cache_tag_false') %>
+</div>
