@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-md-12">
+    <header id="search-header">
+      <%# The search header will remain constant and this partial will always be available. %>
+      <%= render 'search_form' %>
+    </header>
+  </div>
+</div>
+
+<%# If @forecast is populated and contains results, let's display them for the user %>
+<% if @forecast && @forecast.key?(:results) %>
+  <%# Make life a little simpler by narrowing the result set %>
+  <% forecast = @forecast[:results] %>
+  <%# Calculate the high temp outside of the multiple partials its used in %>
+  <% high_temp = forecast['hourly'].pluck('temp').max.round %>
+  <%# Calculate the low temp outside of the multiple partials its used in %>
+  <% low_temp = forecast['hourly'].pluck('temp').min.round %>
+
+  <%# TODO: Improve this logic to iterate over the alerts, just in case there are non-duplicates. Show the last alert (if present) since the API shows a lot of duplicated. %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render 'alerts', alert: forecast['alerts'].last if forecast['alerts'].present? %>
+    </div>
+  </div>
+
+  <div class="row">
+    <%# Calculate the current, localized time from the result set %>
+    <% time = Time.at(forecast.dig('current', 'dt').to_i).in_time_zone(forecast['timezone']).strftime('%I:%M %p %Z') %>
+    <%# display the current temperature partial, passing in the require variables and relevant precalculated values %>
+    <div class="col-md-12">
+      <%= render 'current_temperature', location: @geolocation, forecast: forecast, time: time, high_temp: high_temp, low_temp: low_temp %>
+    </div>
+
+    <%# display the current temperature partial, passing in the require variables and relevant precalculated values %>
+    <div class="col-md-12">
+      <%= render 'weather_today', location: @geolocation, forecast: forecast, high_temp: high_temp, low_temp: low_temp %>
+    </div>
+  </div>
+
+  <%# display the extended forecast partial, passing in the require variables and relevant precalculated values %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render 'extended_forecast', location: @geolocation, forecast: forecast %>
+    </div>
+  </div>
+
+  <%# this basic partial will alert the user if the weather information has been read from cache, and will inform them of the update interval. %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render 'cache_tag', read_from_cache: @forecast[:read_from_cache].presence || false %>
+    </div>
+  </div>
+
+<%# If there's no populated @forecast or the @forecast contains no results, notify the user %>
+<% else %>
+  <%= render "no_results" %>
+<% end %>

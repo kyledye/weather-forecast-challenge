@@ -1,0 +1,16 @@
+<%# We don't want to bother processing if there's no alert to display %>
+<% if alert %>
+  <%# Reduce keystrokes by truncating to a variable %>
+  <% event = alert['event'] %>
+  <%# Localize and format the Date/Time that the alert starts %>
+  <% start_time = Time.at(alert['start'].to_i).strftime("%A, %B %d at %I:%M %p") %>
+  <%# Localize and format the Date/Time that the alert ends %>
+  <% end_time = Time.at(alert['end'].to_i).strftime("%A, %B %d at %I:%M %p") %>
+
+  <div class="alert alert-danger" role="alert">
+    <%# Typically the National Weather Service (NWS) sends these alerts, but we want to make this dynamic in case anyone else issues it. %>
+    <strong><%= alert['sender_name'] %></strong>:
+    <%# Display the translated message with the start and end times injected %>
+    <%= I18n.t('alert_effective_dates', event: event, start: start_time, end: end_time) %>
+  </div>
+<% end %>

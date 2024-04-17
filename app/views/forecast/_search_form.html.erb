@@ -1,0 +1,9 @@
+<%# Create the custom <form /> tag for the user to search with %>
+<%= form_with(url: root_path, method: 'get', local: true) do |form| %>
+  <%# If the query is empty or not performed, default the value to '' (empty) %>
+  <% query_value = params[:q] || '' %>
+  <div class="input-group mb-3">
+    <%= form.text_field :q, value: query_value, autofocus: true, class: 'form-control form-control-lg', placeholder: I18n.t('search_location_placeholder') %>
+    <button type="submit" class="btn btn-primary"><%= I18n.t('search_button') %></button>
+  </div>
+<% end %>
