@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://maps.googleapis.com/maps/api/geocode/json?address=1%20Apple%20Park%20Way,%20Cupertino,%20CA&key=AIzaSyAUMMTA8uJFf19cmrg8sYCH1IniHA3etXw&language=en&region=us&sensor=false
+    uri: https://maps.googleapis.com/maps/api/geocode/json?address=1%20Apple%20Park%20Way,%20Cupertino,%20CA&key=<<REDACTED>>&language=en&region=us&sensor=false
     body:
       encoding: US-ASCII
       string: ''

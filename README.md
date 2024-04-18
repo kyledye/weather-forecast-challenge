@@ -47,6 +47,7 @@ Depending on the terminal app you're using, you can either click on the Listenin
 ## Toggling Cache for Development Environment
 
 By default, caching is enabled for the weather forecasting app in the development environment. You can modify the value of `config.action_controller.perform_caching` to either `true` (enabled) or `false` (disabled). Alternatively, you can use the following command-line toggler:
+
 ```console
 rails dev:cache
 ```
@@ -63,7 +64,7 @@ When the testing suite completes, a coverage report will be generated in the `co
 
 ## Service Objects
 
-There are two service objects used in this application, both are located in `app/services/` and are wrappers around third-party APIs.
+There are two service objects used in this application, both are located in `app/services/` and are wrappers around third-party APIs.  If you need an API key to use for either service, please reach out and I can share!
 
 ### Geocoding Service
 
