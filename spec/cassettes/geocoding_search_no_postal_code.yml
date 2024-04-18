@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://maps.googleapis.com/maps/api/geocode/json?address=Grand%20Rapids,%20MI&key=AIzaSyAUMMTA8uJFf19cmrg8sYCH1IniHA3etXw&language=en&region=us&sensor=false
+    uri: https://maps.googleapis.com/maps/api/geocode/json?address=Grand%20Rapids,%20MI&key=<<REDACTED>>&language=en&region=us&sensor=false
     body:
       encoding: US-ASCII
       string: ''
